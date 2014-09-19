@@ -8,8 +8,6 @@ module CukeReporter
   class ReportGenerator < Thor::Group
     include Thor::Actions
 
-    # argument :site_name
-
     def self.source_root
       File.dirname(__FILE__)
     end
@@ -25,7 +23,6 @@ module CukeReporter
 
       data_dir = CukeReporter::ReportGenerator.source_root + '/../../../json/*.json'
 
-      # binding.pry
       report_template = CukeReporter::ReportGenerator.source_root + '/templates/report.haml'
       report_output = 'foo/index.html'
 
@@ -33,7 +30,6 @@ module CukeReporter
       say 'Generating Report…', :green
       report.make_report
 
-      # template('templates/flow/flow.rb.tt', "lib/sites/#{name}/flows/#{partial_name}.rb")
     end
   end
 end

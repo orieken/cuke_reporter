@@ -27,34 +27,36 @@
 
       #main.row-fluid
         .reports
-        - @scenarios.each do |file|
-          - feature = CukeReporter::Parser.new(file)
+        - @features.each do |file|
+          - feature_data = CukeReporter::Parser.new(file)
           -#start madness
-          -#- p feature
-          -#- binding.pry
           .report
             .panel.panel-default
               .panel-heading
                 %h3
-                  %strong Feature:
-                  = feature.feature_name
-                  %small=feature.feature_file
+                  %strong= "#{feature_data.feature.keyword}:  #{feature_data.feature.name}"
+                  %small.text-right= feature_data.feature.uri
               .panel-body
-                .steps
-                  .panel
-                - feature.steps.each do |step|
-                  - if step[:result] == 'failed'
-                    .panel-heading
-                      %p{ class: "text-#{step[:result]}"}
-                        %strong=step[:name]
-                        %small.text-right=step[:match]
-                    .panel-body.panel-body-danger
-                      %pre=step[:error]
-                  - else
-                    %small
-                      %p{ class: "text-#{step[:result]}"}
-                        %strong=step[:name]
-                        %small.text-right=step[:match]
+              - feature_data.feature.scenarios.each do |scenario|
+                .panel.panel-default
+                  .panel-heading
+                    %h3.panel-title
+                      %strong= "#{scenario.keyword}:  #{scenario.name}"
+                      %small.text-right= feature_data.feature.uri
+                  .panel-body
+                  - scenario.steps.each do |step|
+                    - if step.result.status == 'failed'
+                      .panel-heading
+                      %p{ class: "text-#{step.result.status}"}
+                        %strong= "#{step.keyword} #{step.name}"
+                        %small.text-right= step.match.location
+                      .panel-body.panel-body-danger
+                        %pre=step.result.error_message
+                    - else
+                      %small
+                        %p{ class: "text-#{step.result.status}"}
+                          %strong= "#{step.keyword} #{step.name}"
+                          %small.text-right= step.match.location
       %footer
         %script(src="javascripts/jquery-2.1.1.min.js")
         %script(src="stylesheets/bootstrap-3.2.0-dist/js/bootstrap.js")

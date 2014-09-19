@@ -1,4 +1,4 @@
--require '../../lib/cuke_reporter.rb'
+-require File.expand_path(File.dirname(__FILE__))+ '/lib/cuke_reporter'
 
 !!!
 %html
@@ -6,7 +6,7 @@
     %title Cucumber Report
   %body
     .container
-      %header.navbar.navbar-inverse
+      %header.navbar{class: "navbar-#{@run_result}"}
         .navbar-header
           %h1.navbar-brand Cucumber Features Results
         .navbar-collapse.collapse.navbar-responsive-collapse
@@ -27,36 +27,38 @@
 
       #main.row-fluid
         .reports
-        - @features.each do |file|
-          - feature_data = CukeReporter::Parser.new(file)
-          -#start madness
-          .report
-            .panel.panel-default
-              .panel-heading
-                %h3
-                  %strong= "#{feature_data.feature.keyword}:  #{feature_data.feature.name}"
-                  %small.text-right= feature_data.feature.uri
-              .panel-body
-              - feature_data.feature.scenarios.each do |scenario|
-                .panel.panel-default
-                  .panel-heading
-                    %h3.panel-title
-                      %strong= "#{scenario.keyword}:  #{scenario.name}"
-                      %small.text-right= feature_data.feature.uri
-                  .panel-body
-                  - scenario.steps.each do |step|
-                    - if step.result.status == 'failed'
+          - @features.each do |file|
+            - feature_data = CukeReporter::Parser.new(file)
+            .report
+              .panel.panel-default
+                .panel-heading
+                  %h3.panel-title
+                    %strong= "#{feature_data.feature.keyword}:  "
+                    = feature_data.feature.name
+                    %small.text-right= feature_data.feature.uri
+                .panel-body
+                  - feature_data.feature.scenarios.each do |scenario|
+                    .panel.panel-default
                       .panel-heading
-                      %p{ class: "text-#{step.result.status}"}
-                        %strong= "#{step.keyword} #{step.name}"
-                        %small.text-right= step.match.location
-                      .panel-body.panel-body-danger
-                        %pre=step.result.error_message
-                    - else
-                      %small
-                        %p{ class: "text-#{step.result.status}"}
-                          %strong= "#{step.keyword} #{step.name}"
-                          %small.text-right= step.match.location
+                        %h3.panel-title
+                          %strong= "#{scenario.keyword}:  "
+                          = "#{scenario.name}"
+                          %small.text-right= feature_data.feature.uri
+                      .panel-body
+                        - scenario.steps.each do |step|
+                          - if step.result.status == 'failed'
+                            .panel
+                              .panel-heading{class: "text-#{step.result.status}"}
+                                %h3.panel-title
+                                  %strong= "#{step.keyword} #{step.name}"
+                                  %small.text-right= step.match.location
+                              .panel-body.panel-body-danger
+                                %pre=step.result.error_message
+                          - else
+                            %small
+                              %p{ class: "text-#{step.result.status}"}
+                                %strong= "#{step.keyword} #{step.name}"
+                                %small.text-right= step.match.location
       %footer
         %script(src="javascripts/jquery-2.1.1.min.js")
         %script(src="stylesheets/bootstrap-3.2.0-dist/js/bootstrap.js")

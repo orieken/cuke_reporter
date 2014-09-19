@@ -1,3 +1,8 @@
+CukeReporter
+=============
+
+Stand alone report generator that will take cucumber json output and create a single report.
+
 # CukeReporter
 
 TODO: Write a gem description

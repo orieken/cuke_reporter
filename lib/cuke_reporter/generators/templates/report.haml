@@ -1,0 +1,63 @@
+-require '/Users/oscar/Projects/Personal/cuke_reporter/lib/cuke_reporter.rb'
+
+!!!
+%html
+  %head
+    %title Cucumber Report
+  %body
+    .container
+      %header.navbar.navbar-inverse
+        .navbar-header
+          %h1.navbar-brand Cucumber Features Results
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          .navbar-text.navbar-right
+            %ul.navbar-collapse.collapse.navbar-responsive-collapse
+              %li
+                %ul.totals
+                  %li#totals= "#{@results[:total]} Scenarios (#{@results[:failed]} failed, #{@results[:undefined]} undefined, #{@results[:passed]} passed)"
+                  %li#durantion= "Duration: #{@run_duration}"
+                  %li#status{ class: "text-#{@run_result}"}= "Status: #{@run_result.upcase}"
+                  %li
+                    .btn-group
+                      %button.btn.btn-success.btn-sm#btnPass Hide Passing
+                      %button.btn.btn-danger.btn-sm#btnFail Hide Failing
+                      %button.btn.btn-warning.btn-sm#btnUndefined Hide Undefined
+                    .btn-group
+                      %button.btn.btn-sm#btnCollapase Collapse All
+
+      #main.row-fluid
+        .reports
+        - @scenarios.each do |file|
+          - feature = CukeReporter::Parser.new(file)
+          -#start madness
+          -#- p feature
+          -#- binding.pry
+          .report
+            .panel.panel-default
+              .panel-heading
+                %h3
+                  %strong Feature:
+                  = feature.feature_name
+                  %small=feature.feature_file
+              .panel-body
+                .steps
+                  .panel
+                - feature.steps.each do |step|
+                  - if step[:result] == 'failed'
+                    .panel-heading
+                      %p{ class: "text-#{step[:result]}"}
+                        %strong=step[:name]
+                        %small.text-right=step[:match]
+                    .panel-body.panel-body-danger
+                      %pre=step[:error]
+                  - else
+                    %small
+                      %p{ class: "text-#{step[:result]}"}
+                        %strong=step[:name]
+                        %small.text-right=step[:match]
+      %footer
+        %script(src="javascripts/jquery-2.1.1.min.js")
+        %script(src="stylesheets/bootstrap-3.2.0-dist/js/bootstrap.js")
+        %script(src="javascripts/toggle_header.js")
+        %link{type: 'text/css', rel: 'stylesheet', href: 'stylesheets/bootstrap-3.2.0-dist/css/bootstrap.css'}
+        %link{type: 'text/css', rel: 'stylesheet', href: 'stylesheets/report.css'}

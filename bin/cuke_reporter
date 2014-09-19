@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative '../lib/cuke_reporter/generators/cuke_reporter_generators'
+
+CukeReporter::Generators.start

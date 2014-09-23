@@ -20,8 +20,13 @@ li .text-failed {
     color: #d9534f;
 }
 
+tr .text-failed {
+    background-color: #d9534f ;
+}
+
+.text-undefined,
 .text-pending {
-    color: #ffff00;
+    color: #ffaf00;
 }
 
 .text-skipped {
@@ -38,6 +43,113 @@ ul {
     color: #d9534f;
     background-color: #d9534f;
     border-color: #ebccd1;
+}
+
+
+.table > thead > tr > td.failed,
+.table > tbody > tr > td.failed,
+.table > tfoot > tr > td.failed,
+.table > thead > tr > th.failed,
+.table > tbody > tr > th.failed,
+.table > tfoot > tr > th.failed,
+.table > thead > tr.failed > td,
+.table > tbody > tr.failed > td,
+.table > tfoot > tr.failed > td,
+.table > thead > tr.failed > th,
+.table > tbody > tr.failed > th,
+.table > tfoot > tr.failed > th {
+    background-color: #f2dede;
+}
+.table-hover > tbody > tr > td.failed:hover,
+.table-hover > tbody > tr > th.failed:hover,
+.table-hover > tbody > tr.failed:hover > td,
+.table-hover > tbody > tr:hover > .failed,
+.table-hover > tbody > tr.failed:hover > th {
+    background-color: #ebcccc;
+}
+
+.table > thead > tr > td.passed,
+.table > tbody > tr > td.passed,
+.table > tfoot > tr > td.passed,
+.table > thead > tr > th.passed,
+.table > tbody > tr > th.passed,
+.table > tfoot > tr > th.passed,
+.table > thead > tr.passed > td,
+.table > tbody > tr.passed > td,
+.table > tfoot > tr.passed > td,
+.table > thead > tr.passed > th,
+.table > tbody > tr.passed > th,
+.table > tfoot > tr.passed > th {
+    background-color: #dff0d8;
+}
+.table-hover > tbody > tr > td.passed:hover,
+.table-hover > tbody > tr > th.passed:hover,
+.table-hover > tbody > tr.passed:hover > td,
+.table-hover > tbody > tr:hover > .passed,
+.table-hover > tbody > tr.passed:hover > th {
+    background-color: #d0e9c6;
+}
+
+.table > thead > tr > td.skipped,
+.table > tbody > tr > td.skipped,
+.table > tfoot > tr > td.skipped,
+.table > thead > tr > th.skipped,
+.table > tbody > tr > th.skipped,
+.table > tfoot > tr > th.skipped,
+.table > thead > tr.skipped > td,
+.table > tbody > tr.skipped > td,
+.table > tfoot > tr.skipped > td,
+.table > thead > tr.skipped > th,
+.table > tbody > tr.skipped > th,
+.table > tfoot > tr.skipped > th {
+    background-color: #d9edf7;
+}
+.table-hover > tbody > tr > td.skipped:hover,
+.table-hover > tbody > tr > th.skipped:hover,
+.table-hover > tbody > tr.skipped:hover > td,
+.table-hover > tbody > tr:hover > .skipped,
+.table-hover > tbody > tr.skipped:hover > th {
+    background-color: #c4e3f3;
+}
+
+.table > thead > tr > td.undefined,
+.table > tbody > tr > td.undefined,
+.table > tfoot > tr > td.undefined,
+.table > thead > tr > th.undefined,
+.table > tbody > tr > th.undefined,
+.table > tfoot > tr > th.undefined,
+.table > thead > tr.undefined > td,
+.table > tbody > tr.undefined > td,
+.table > tfoot > tr.undefined > td,
+.table > thead > tr.undefined > th,
+.table > tbody > tr.undefined > th,
+.table > tfoot > tr.undefined > th,
+.table > thead > tr > td.pending,
+.table > tbody > tr > td.pending,
+.table > tfoot > tr > td.pending,
+.table > thead > tr > th.pending,
+.table > tbody > tr > th.pending,
+.table > tfoot > tr > th.pending,
+.table > thead > tr.pending > td,
+.table > tbody > tr.pending > td,
+.table > tfoot > tr.pending > td,
+.table > thead > tr.pending > th,
+.table > tbody > tr.pending > th,
+.table > tfoot > tr.pending > th {
+    background-color: #fcf8e3;
+}
+
+.table-hover > tbody > tr > td.undefined:hover,
+.table-hover > tbody > tr > th.undefined:hover,
+.table-hover > tbody > tr.undefined:hover > td,
+.table-hover > tbody > tr:hover > .undefined,
+.table-hover > tbody > tr.undefined:hover > th,
+.table-hover > tbody > tr > td.pending:hover,
+.table-hover > tbody > tr > th.pending:hover,
+.table-hover > tbody > tr.pending:hover > td,
+.table-hover > tbody > tr:hover > .pending,
+.table-hover > tbody > tr.pending:hover > th {
+    background-color: #faf2cc;
 }
 
 /* simplex navbar */
@@ -248,6 +360,7 @@ fieldset[disabled] .navbar-passed .btn-link:hover,
 fieldset[disabled] .navbar-passed .btn-link:focus {
     color: #444444;
 }
+
 /*end sandstone*/
 
 

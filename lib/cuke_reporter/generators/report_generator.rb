@@ -35,7 +35,7 @@ module CukeReporter
 
         report_output_path = "#{report_output_dir}/#{options[:report_output]}"
         report = CukeReporter::Report.new(data_dir, options[:report_template], report_output_path)
-        say 'Generating Report…', :green
+        say 'Generating Report...', :green
         report.make_report
         if File.exists?("#{report_output_dir}/#{options[:report_output]}")
           say 'Report generated successfully', :green

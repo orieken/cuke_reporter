@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %title Cucumber Results Quick View
+  %body
+    .container
+      %header.navbar.navbar-default
+        .navbar-header
+          %h1.navbar-brand Cucumber Results Quick View
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          .navbar-text.navbar-right
+
+      #main.row-fluid
+        .reports
+          .report
+            %table.table.table-striped.table-hover
+              %thead
+                %tr
+                  %th Report Name
+                  %th Total
+                  %th Passed
+                  %th Failed
+                  %th Undefined
+                  %th Path
+              %tbody
+                -@results.each do |result|
+                  %tr{class: "text-#{result.status} #{result.status}"}
+                    %td= result.name
+                    %td= result.total
+                    %td= result.passed
+                    %td= result.failed
+                    %td= result.undefined
+                    %td
+                      %a.btn.btn-link{href: result.path} View Report
+
+      %footer
+        %script(src="javascripts/jquery-2.1.1.min.js")
+        %script(src="stylesheets/bootstrap-3.2.0-dist/js/bootstrap.js")
+        %script(src="javascripts/toggle_header.js")
+        %link{type: 'text/css', rel: 'stylesheet', href: 'stylesheets/bootstrap-3.2.0-dist/css/bootstrap.css'}
+        %link{type: 'text/css', rel: 'stylesheet', href: 'stylesheets/report.css'}

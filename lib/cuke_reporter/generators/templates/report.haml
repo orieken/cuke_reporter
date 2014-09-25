@@ -38,7 +38,7 @@
                     %small.text-right= feature_data.feature.uri
                 .panel-body
                   - feature_data.feature.scenarios.each do |scenario|
-                    .panel.panel-default
+                    .panel.panel-default{class: "#{scenario.status}"}
                       .panel-heading
                         %h3.panel-title
                           %strong= "#{scenario.keyword}:  "

@@ -18,7 +18,8 @@ module CukeReporter
         file.puts engine.render(Object.new, {:@features => @json,
                                              :@results => result_distribution,
                                              :@run_result => run_result,
-                                             :@run_duration => run_duration})
+                                             :@run_duration => run_duration,
+                                             :@scenario_results => scenario_distribution})
       end
     end
 
@@ -41,16 +42,36 @@ module CukeReporter
       }
     end
 
+    def scenario_distribution
+      @scenario_status.flatten!
+      {
+          total: @scenario_status.count,
+          passed: @scenario_status.grep('passed').count,
+          failed: @scenario_status.grep('failed').count,
+          undefined: @scenario_status.grep('undefined').count
+      }
+    end
+
     private
     def compile_run_attributes
       @all_results = []
       @all_durations = []
+      @scenario_status = []
 
       @json.each do |file|
         scenario = CukeReporter::Parser.new(file)
+        @scenario_status.push(scenario_results(scenario.feature))
         @all_results.push(scenario.result)
         @all_durations.push(scenario.duration)
       end
+    end
+
+    def scenario_results(feature)
+      results = []
+      feature.scenarios.each do |scenario|
+        results << scenario.status
+      end
+      results
     end
   end
 end

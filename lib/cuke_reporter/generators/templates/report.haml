@@ -14,7 +14,7 @@
             %ul.navbar-collapse.collapse.navbar-responsive-collapse
               %li
                 %ul.totals
-                  %li#totals= "#{@results[:total]} Scenarios (#{@results[:failed]} failed, #{@results[:undefined]} undefined, #{@results[:passed]} passed)"
+                  %li#totals= "#{@scenario_results[:total]} Scenarios (#{@scenario_results[:failed]} failed, #{@scenario_results[:undefined]} undefined, #{@scenario_results[:passed]} passed)"
                   %li#durantion= "Duration: #{@run_duration}"
                   %li#status{ class: "text-#{@run_result}"}= "Status: #{@run_result.upcase}"
                   %li

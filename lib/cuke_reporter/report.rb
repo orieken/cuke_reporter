@@ -9,7 +9,7 @@ module CukeReporter
     end
 
     def join_json_files_in(json_dir)
-      Dir[File.join(json_dir, '*.json')].map { |f| JSON.parse(File.read(f)) unless f.nil? }.flatten
+      Dir[File.join(json_dir, '*.json')].map { |f| JSON.parse(File.read(f)) unless f.nil? || File.zero?(f) }.flatten
     end
 
     def make_report(run_duration='00:00')

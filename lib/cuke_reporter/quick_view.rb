@@ -16,20 +16,22 @@ module CukeReporter
 
     def get_results_data(report_dirs, full_report_template, report_output_dir)
       results_data = []
-      report_dirs.each do |report_dir|
-        report_name = get_report_name(report_dir)
-        report_output = report_output_name(report_name)
-        report_output_path = "#{report_output_dir}/#{report_output}"
+      if report_dirs
+        report_dirs.each do |report_dir|
+          report_name = get_report_name(report_dir)
+          report_output = report_output_name(report_name)
+          report_output_path = "#{report_output_dir}/#{report_output}"
 
-        built_report = CukeReporter::Report.new(report_dir, full_report_template, report_output_path)
+          built_report = CukeReporter::Report.new(report_dir, full_report_template, report_output_path)
 
-        results = OpenStruct.new(built_report.result_distribution)
-        results.path = report_output
-        results.name = report_name
-        results.status = built_report.run_result
-        results_data << results
+          results = OpenStruct.new(built_report.result_distribution)
+          results.path = report_output
+          results.name = report_name
+          results.status = built_report.run_result
+          results_data << results
 
-        built_report.make_report
+          built_report.make_report
+        end
       end
 
       results_data

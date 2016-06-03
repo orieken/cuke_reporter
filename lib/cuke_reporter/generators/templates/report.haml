@@ -37,29 +37,33 @@
                     = feature_data.feature.name
                     %small.text-right= feature_data.feature.uri
                 .panel-body
-                  - feature_data.feature.scenarios.each do |scenario|
-                    .panel.panel-default
-                      .panel-heading
-                        %h3.panel-title
-                          %strong= "#{scenario.keyword}:  "
-                          = "#{scenario.name}"
-                          %small.text-right= feature_data.feature.uri
-                      .panel-body
-                        - scenario.steps.each do |step|
-                          - if step.result.status == 'failed'
-                            .panel
-                              .panel-heading{class: "text-#{step.result.status}"}
-                                %h3.panel-title
-                                  %strong= "#{step.keyword} #{step.name}"
-                                  %small.text-right= step.match.location
-                              .panel-body.panel-body-danger
-                                %pre=step.result.error_message
-                          - else
-                            %small
-                              %p{ class: "text-#{step.result.status}"}
-                                %strong= "#{step.keyword} #{step.name}"
-                                %small.text-right= step.match.location
-      %footer
+                  - if feature_data.feature.scenarios
+                    - feature_data.feature.scenarios.each do |scenario|
+                      .panel.panel-default
+                        .panel-heading
+                          %h3.panel-title
+                            %strong= "#{scenario.keyword}:  "
+                            = "#{scenario.name}"
+                            %small.text-right= feature_data.feature.uri
+                        .panel-body
+                          - if scenario.steps
+                            - scenario.steps.each do |step|
+                              - if step.result.status == 'failed'
+                                .panel
+                                  .panel-heading{class: "text-#{step.result.status}"}
+                                    %h3.panel-title
+                                      %strong= "#{step.keyword} #{step.name}"
+                                      -#- if step.match.location
+                                      -#  %small.text-right= step.match.location
+                                  .panel-body.panel-body-danger
+                                    %pre=step.result.error_message
+                              - else
+                                %small
+                                  %p{ class: "text-#{step.result.status}"}
+                                    %strong= "#{step.keyword} #{step.name}"
+                                    -#- if step.match.location
+                                    -#  %small.text-right= step.match.location
+        %footer
         %script(src="javascripts/jquery-2.1.1.min.js")
         %script(src="stylesheets/bootstrap-3.2.0-dist/js/bootstrap.js")
         %script(src="javascripts/toggle_header.js")

@@ -3,7 +3,7 @@ module CukeReporter
     attr_reader :feature, :result, :duration
 
     def initialize(feature)
-      @feature = RecursiveOpenStruct.new(feature, :recurse_over_arrays => true )
+      @feature = RecursiveOpenStruct.new(feature, :recurse_over_arrays => true)
       @feature.scenarios = @feature.elements
       @result = get_result
       @duration = get_duration
@@ -14,21 +14,24 @@ module CukeReporter
     def get_duration
       duration = 0
 
-      @feature.scenarios.each do |scenarios|
-        scenarios.steps.each do |step|
-          duration += step.result.duration
+      if @feature.scenarios
+        @feature.scenarios.each do |scenarios|
+          scenarios.steps.each do |step|
+            duration += step.result.duration if step.result.duration
+          end
         end
       end
       duration
     end
 
-
     def get_result
       results = []
 
-      @feature.scenarios.each do |scenarios|
-        scenarios.steps.each do |step|
-          results << step.result.status
+      if @feature.scenarios
+        @feature.scenarios.each do |scenarios|
+          scenarios.steps.each do |step|
+            results << step.result.status
+          end
         end
       end
 

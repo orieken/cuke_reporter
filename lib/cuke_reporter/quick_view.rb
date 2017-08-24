@@ -10,7 +10,7 @@ module CukeReporter
 
     def get_reports(data_dir)
       report_dirs = []
-      Dir.glob(data_dir + '/*').select { |dir| report_dirs << dir if File.directory?(dir) }
+      Dir.glob(data_dir + '**/*').select { |dir| report_dirs << dir if File.directory?(dir) }
       report_dirs
     end
 
